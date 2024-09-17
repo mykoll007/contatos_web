@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS contatoss;
+
+USE contatoss;
+
+CREATE TABLE `contatoss`.`contatos_info` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `telefone` VARCHAR(20),
+  `email` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `contatoss`.`usuario` (
+  `id` INT(11) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
+  `senha` VARCHAR(100),
+  `email` VARCHAR(100) UNIQUE,
+  `token` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
