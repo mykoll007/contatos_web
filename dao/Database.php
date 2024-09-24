@@ -4,7 +4,7 @@ class Database
     private static $instace = null;
     private $conn;
     private $host = 'localhost';
-    private $db = 'contatoss';
+    private $db = 'contatos';
     private $user = 'root';
     private $pass = '';
 
@@ -23,7 +23,7 @@ class Database
         {
             self::$instace = new Database();
         }
-        
+
         return self::$instace;
     }
 
