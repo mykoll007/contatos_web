@@ -15,6 +15,11 @@ class Contato
         $this->email = $email;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getNome()
     {
         return $this->nome;
@@ -28,6 +33,21 @@ class Contato
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
+    public function setTelefone($telefone)
+    {
+        $this->telefone = $telefone;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     public function __toString()

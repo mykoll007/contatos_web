@@ -67,12 +67,38 @@ class ContatoDAO
 
     public function update($contato)
     {
+        try {
+            $sql = "UPDATE contatos_info SET nome = :nome, telefone = :telefone, email = :email WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
 
+            $stmt->execute([
+                ':id' => $contato->getId(),
+                ':nome' => $contato->getNome(),
+                ':telefone' => $contato->getTelefone(),
+                ':email' => $contato->getEmail()
+            ]);
+
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
     }
+
 
     public function delete($id)
     {
+        try {
+            $sql = "DELETE FROM contatos_info WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
 
+            $stmt->execute([':id' => $id]);
+
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
     }
 }
 
