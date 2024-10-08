@@ -28,6 +28,33 @@ class UsuarioDAO{
             return false;
         }
     }
+
+    public function getByEmail($email)
+    {
+        try {
+            $sql = "SELECT * FROM usuario WHERE Email = :email";
+            $stmt = $this->db->prepare($sql);
+
+            $stmt->execute([':email' => $email]);
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $usuario ? new Usuario($usuario['id'], $usuario['nome'], $usuario['senha'], $usuario['email'], $usuario['token']) : null;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    public function updateToken($id, $token)
+    {
+        try {
+            $sql = "UPDATE usuario SET token = :token WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id' => $id, ':token' => $token]);
+
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }
 
 ?>

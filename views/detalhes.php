@@ -1,4 +1,14 @@
 <?php
+session_start();
+
+// Verificar se o usuário está autenticado
+// TODO: Buscar token do usuário no banco e verificar se é iugal ao passado
+if(!isset($_SESSION['token']))
+{
+    header('Location: auth.php');
+    exit();
+}
+
 
 require_once '../dao/ContatoDAO.php';
 
