@@ -15,6 +15,9 @@ switch($type)
     case "login":
         handleLogin();
         break;
+    case "logout":
+        handleLogout();
+        break;
     default:
         echo "Ação inválida";
         break;
@@ -46,13 +49,13 @@ function handlerRegistration()
     // Criação do Usuário no Banco de Dados
     $usuario = new Usuario(null, $nome, $hashed_password, $email, $token);
     $usuarioDAO = new UsuarioDAO();
-   
+
     if($usuarioDAO->getByEmail($email))
     {
         echo "Email já utilizado";
         return;
     }
-
+   
     // Redirecionar para a página do index
     if($usuarioDAO->create($usuario)) 
     {
@@ -78,10 +81,9 @@ function handleLogin()
 
     if(!$usuario || !password_verify($senha, $usuario->getSenha()))
     {
-        echo "Email ou senha inválido";
+        echo "Email ou senha inválidos!";
         return;
     }
-
 
     // Geração de novo token e atualização do token no banco de dados
     $token = bin2hex(random_bytes(25));
@@ -90,6 +92,15 @@ function handleLogin()
     $_SESSION['token'] = $token;
     header('Location: ../views/index.php');
     exit();
+}
+
+function handleLogout(){
+    // Limpar todas as variáveis de sessão
+    $_SESSION = array();
+    // Destruir a sessão
+    session_destroy();
+    // Redireciona para a página de login
+    header("Location: ../views/index.php");
 }
 
 ?>

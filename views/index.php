@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once '../dao/ContatoDAO.php';
 
 $contatoDAO = new ContatoDAO();
@@ -31,10 +33,16 @@ $contatos = $contatoDAO->getAll();
                     </form>
                     <ul class="navbar-nav ml-auto">                       
                             
-                        
+                    <?php if(isset($_SESSION['token'])) : ?>
+                        <form action="../service/AuthService.php" method="post">
+                                <input type="hidden" name="type" value="logout">
+                                <button type="submit">Logout</button>
+                            </form>
+                        <?php else : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="auth.php">Login</a>
                             </li>
+                        <?php endif; ?>
                         
                     </ul>
                 </div>
